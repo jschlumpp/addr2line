@@ -42,7 +42,7 @@ pub extern crate fallible_iterator;
 pub extern crate gimli;
 
 use alloc::sync::Arc;
-use core::cell::OnceCell;
+use std::sync::OnceLock;
 use core::ops::ControlFlow;
 
 use gimli::ReaderOffset;
@@ -81,7 +81,7 @@ mod unit;
 pub use unit::LocationRangeIter;
 
 type Error = gimli::Error;
-type LazyResult<T> = OnceCell<Result<T, Error>>;
+type LazyResult<T> = OnceLock<Result<T, Error>>;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum DebugFile {
